@@ -59,23 +59,34 @@ export class ResizerDirective {
 
   _onMouseMove(e: any) {
     if(this._mouseDown){
-      console.log('Mouse move.');
-      //var refPos = this._elemRef.nativeElement.getBoundingClientRect();
-      //e.preventDefault();
-      var posX = e.pageX;
-      var docWidth = document.body.clientWidth;
-      //var posY = e.clientY;
 
-      if(!(posX < 50 || posX > (docWidth - 50))){
-        this._elemRef.nativeElement.style.left = (posX) + 'px';
-        document.getElementById(this._resizerLeft).style.width = (posX) + 'px';
-        document.getElementById(this._resizerRight).style.left = (posX + this._resizerWidth) + 'px';
+      var posX = e.pageX;
+      var posY = window.innerHeight - e.pageY;
+      //var topLimit = document.getElementById(this._resizerTop).offsetHeight
+      //var bottomLimit = document.getElementById(this._resizerBottom).offsetHeight
+      var docWidth = document.body.clientWidth;
+      //console.log('Top Content Height: ' + topLimit);
+      //console.log('Bottom Content Height: ' + bottomLimit);
+      //console.log('Window inner height: ' + window.innerHeight);
+
+      //console.log(posY);
+      if(this._resizerTop != null && this._resizerBottom != null) {
+        this._elemRef.nativeElement.style.bottom = posY + 'px';
+        document.getElementById(this._resizerTop)
+                            .style.bottom = (posY + this._resizerWidth) + 'px';
+        document.getElementById(this._resizerBottom)
+                            .style.height = (posY) + 'px';
       }
 
+      if(!(posX < 50 || posX > (docWidth - 50))
+          && this._resizerLeft != null && this._resizerRight != null){
+        this._elemRef.nativeElement.style.left = (posX) + 'px';
+        document.getElementById(this._resizerLeft)
+                            .style.width = (posX) + 'px';
+        document.getElementById(this._resizerRight)
+                            .style.left = (posX + this._resizerWidth) + 'px';
 
-
-      //console.log(posX);
-      //console.log(e.type);
+      }
     }
   }
 }

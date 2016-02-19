@@ -13,6 +13,11 @@ import {ResizerDirective} from './attribute-directives/resizer.directive';
 
              <div id="content">
               <div id="top-content">Top Content</div>
+
+              <div id="content-resizer" jmResizer [resizerWidth]=6
+                    [resizerTop]="'top-content'"
+                    [resizerBottom]="'bottom-content'"></div>
+
               <div id="bottom-content">Bottom Content</div>
              </div>
             `,
